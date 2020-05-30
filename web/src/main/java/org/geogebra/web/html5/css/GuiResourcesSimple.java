@@ -1,6 +1,5 @@
 package org.geogebra.web.html5.css;
 
-import org.geogebra.web.html5.util.LessResource;
 import org.geogebra.web.resources.SVGResource;
 import org.geogebra.web.resources.SassResource;
 
@@ -59,8 +58,8 @@ public interface GuiResourcesSimple extends ClientBundle {
 	@Source("org/geogebra/web/resources/js/domvas.js")
 	TextResource domvas();
 
-	@Source("org/geogebra/web/resources/css/web-styles-global.less")
-	LessResource modernStyleGlobal();
+	@Source("org/geogebra/web/resources/scss/web-styles-global.scss")
+	SassResource modernStyleGlobal();
 
 	@Source("org/geogebra/web/resources/scss/ev-styles.scss")
 	SassResource evStyleScss();
