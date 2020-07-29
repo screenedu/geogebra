@@ -288,7 +288,9 @@ public class InlineTableControllerW implements InlineTableController {
 			if (tableImpl.getTotalWidth() < 1 || tableImpl.getTotalHeight() < 1) {
 				table.remove();
 			} else {
+				Log.error("contentChanged");
 				table.setContent(getContent());
+				table.updateCascade();
 			}
 			view.getApplication().storeUndoInfo();
 		});
