@@ -4,7 +4,7 @@ public class AppProviderImpl extends AppProvider {
 
     private App app;
 
-    public void setProvider(AppProvider provider) {
+    public static void setProvider(AppProvider provider) {
         AppProvider.provider = provider;
     }
 
@@ -12,6 +12,7 @@ public class AppProviderImpl extends AppProvider {
         this.app = app;
     }
 
+    @Override
     public App getApp() {
         return app;
     }
