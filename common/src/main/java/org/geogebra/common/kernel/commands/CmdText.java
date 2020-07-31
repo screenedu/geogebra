@@ -5,6 +5,7 @@ import org.geogebra.common.kernel.algos.AlgoText;
 import org.geogebra.common.kernel.arithmetic.Command;
 import org.geogebra.common.kernel.geos.GeoBoolean;
 import org.geogebra.common.kernel.geos.GeoElement;
+import org.geogebra.common.kernel.geos.GeoNumeric;
 import org.geogebra.common.kernel.kernelND.GeoPointND;
 import org.geogebra.common.main.MyError;
 
@@ -82,6 +83,23 @@ public class CmdText extends CommandProcessor {
 			}
 			throw argErr(c,
 					ok ? (ok1 ? arg[3] : arg[2]) : arg[1]);
+
+		case 5:
+			ok1 = false;
+			boolean ok2 = false;
+			arg = resArgs(c);
+			if ((ok = arg[1].isGeoPoint()) && (ok1 = arg[2].isGeoBoolean())
+					&& (ok2 = arg[3].isGeoBoolean()) && arg[4].isGeoNumeric()) {
+
+				algo = new AlgoText(cons, c.getLabel(), arg[0],
+						(GeoPointND) arg[1], (GeoBoolean) arg[2],
+						(GeoBoolean) arg[3], (GeoNumeric) arg[3], null);
+
+				GeoElement[] ret2 = { algo.getGeoText() };
+				return ret2;
+			}
+			throw argErr(c,
+					ok ? (ok1 ? (ok2 ? arg[4] : arg[3]) : arg[2]) : arg[1]);
 
 		default:
 			throw argNumErr(c);
