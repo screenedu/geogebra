@@ -221,7 +221,7 @@ public final class DrawText extends Drawable {
 
 	private void handleTextAlignment() {
 		int horizontalVal = text.getHorizontalAlignment() != null
-				?(int) text.getHorizontalAlignment().getValue()
+				? (int) text.getHorizontalAlignment().getValue()
 				: 1;
 		int verticalVal = text.getVerticalAlignment() != null
 				? (int) text.getVerticalAlignment().getValue()

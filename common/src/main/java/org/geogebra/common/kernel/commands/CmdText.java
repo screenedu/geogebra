@@ -108,7 +108,7 @@ public class CmdText extends CommandProcessor {
 			arg = resArgs(c);
 			if ((ok = arg[1].isGeoPoint()) && (ok1 = arg[2].isGeoBoolean())
 					&& (ok2 = arg[3].isGeoBoolean()) && (ok3 = arg[4].isGeoNumeric())
-					&& arg[5].isGeoNumeric()){
+					&& arg[5].isGeoNumeric()) {
 
 				algo = new AlgoText(cons, c.getLabel(), arg[0],
 						(GeoPointND) arg[1], (GeoBoolean) arg[2],
