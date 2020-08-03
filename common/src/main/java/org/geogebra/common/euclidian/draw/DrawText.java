@@ -226,17 +226,16 @@ public final class DrawText extends Drawable {
 		int verticalVal = text.getVerticalAlignment() != null
 				? (int) text.getVerticalAlignment().getValue()
 				: 1;
-		if (horizontalVal == 1) {
-			if (verticalVal == -1) {
-				yLabel = (int) (yLabel + labelRectangle.getHeight() - 10);
-			}
-		} else if (horizontalVal == -1) {
+		if (horizontalVal == -1) {
 			xLabel = (int) (xLabel - labelRectangle.getWidth());
-			if (verticalVal == -1) {
-				yLabel = (int) (yLabel + labelRectangle.getHeight() - 10);
-			}
-		} else if (horizontalVal == 0 && verticalVal == 0) {
+		}
+		if (verticalVal == -1) {
+			yLabel = (int) (yLabel + labelRectangle.getHeight() - 10);
+		}
+		if (horizontalVal == 0) {
 			xLabel = (int) (xLabel - labelRectangle.getWidth() / 2);
+		}
+		if (verticalVal == 0) {
 			yLabel = (int) (yLabel + (labelRectangle.getHeight() - 15) / 2);
 		}
 	}
