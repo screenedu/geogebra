@@ -140,9 +140,9 @@ public class AlgoText extends AlgoElement {
 		if (horizontalAlign != null) {
 			text.setNeedsUpdatedBoundingBox(true);
 			text.update();
-			text.setHorizontalAlignment((int) horizontalAlign.getValue());
+			text.setHorizontalAlignment(horizontalAlign);
 			if (verticalAlign != null) {
-				text.setVerticalAlignment((int) verticalAlign.getValue());
+				text.setVerticalAlignment(verticalAlign);
 			}
 		}
 

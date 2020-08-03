@@ -134,6 +134,7 @@ public final class DrawText extends Drawable {
 
 				xLabel = view.toScreenCoordX(p.getX());
 				yLabel = view.toScreenCoordY(p.getY());
+				handleTextAlignment();
 			}
 			xLabel += text.labelOffsetX;
 			yLabel += text.labelOffsetY;
@@ -215,6 +216,28 @@ public final class DrawText extends Drawable {
 				g2.setPaint(HIGHLIGHT_COLOR);
 				g2.draw(labelRectangle);
 			}
+		}
+	}
+
+	private void handleTextAlignment() {
+		int horizontalVal = text.getHorizontalAlignment() != null
+				?(int) text.getHorizontalAlignment().getValue()
+				: 1;
+		int verticalVal = text.getVerticalAlignment() != null
+				? (int) text.getVerticalAlignment().getValue()
+				: 1;
+		if (horizontalVal == 1) {
+			if (verticalVal == -1) {
+				yLabel = (int) (yLabel + labelRectangle.getHeight() - 10);
+			}
+		} else if (horizontalVal == -1) {
+			xLabel = (int) (xLabel - labelRectangle.getWidth());
+			if (verticalVal == -1) {
+				yLabel = (int) (yLabel + labelRectangle.getHeight() - 10);
+			}
+		} else if (horizontalVal == 0 && verticalVal == 0) {
+			xLabel = (int) (xLabel - labelRectangle.getWidth() / 2);
+			yLabel = (int) (yLabel + (labelRectangle.getHeight() - 15) / 2);
 		}
 	}
 

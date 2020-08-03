@@ -112,8 +112,8 @@ public class GeoText extends GeoElement
 	// for absolute screen location
 	private boolean hasAbsoluteScreenLocation = false;
 
-	private int verticalAlignment = Integer.MIN_VALUE;
-	private int horizontalAlignment = Integer.MIN_VALUE;
+	private GeoNumeric verticalAlignment;
+	private GeoNumeric horizontalAlignment;
 
 	/**
 	 */
@@ -1513,19 +1513,19 @@ public class GeoText extends GeoElement
 		// only read content, no prefix
 	}
 
-	public void setHorizontalAlignment(int horizAlign) {
+	public void setHorizontalAlignment(GeoNumeric horizAlign) {
 		horizontalAlignment = horizAlign;
 	}
 
-	public int getHorizontalAlignment() {
+	public GeoNumeric getHorizontalAlignment() {
 		return horizontalAlignment;
 	}
 
-	public void setVerticalAlignment(int vertAlign) {
+	public void setVerticalAlignment(GeoNumeric vertAlign) {
 		verticalAlignment = vertAlign;
 	}
 
-	public int getVerticalAlignment() {
+	public GeoNumeric getVerticalAlignment() {
 		return verticalAlignment;
 	}
 }
