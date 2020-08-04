@@ -142,10 +142,11 @@ public class EditMenuW extends Submenu {
 						getApp().setWaitCursor();
 
 						GuiManagerInterfaceW guiManager = getApp().getGuiManager();
-						if (guiManager.hasSpreadsheetView() &&
-								!table.isSelectNone()) {
+						if (guiManager.hasSpreadsheetView()
+								&& !table.isSelectNone()) {
 							boolean storeUndo = table.paste();
-							SpreadsheetViewW view = (SpreadsheetViewW) guiManager.getSpreadsheetView();
+							SpreadsheetViewW view = (SpreadsheetViewW) guiManager
+									.getSpreadsheetView();
 							view.rowHeaderRevalidate();
 							if (storeUndo) {
 								getApp().storeUndoInfo();
