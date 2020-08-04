@@ -2,6 +2,7 @@ package org.geogebra.desktop.gui.menubar;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
 import javax.swing.JMenu;
@@ -11,10 +12,16 @@ import javax.swing.KeyStroke;
 import javax.swing.event.MenuEvent;
 
 import org.geogebra.common.kernel.Kernel;
+import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.main.OptionType;
 import org.geogebra.common.main.SelectionManager;
+import org.geogebra.common.util.debug.Log;
 import org.geogebra.desktop.gui.GuiManagerD;
+import org.geogebra.desktop.gui.view.spreadsheet.MyTableD;
+import org.geogebra.desktop.gui.view.spreadsheet.SpreadsheetViewD;
 import org.geogebra.desktop.main.AppD;
+import org.geogebra.desktop.main.GuiManagerInterfaceD;
+import org.geogebra.desktop.util.CopyPasteD;
 import org.geogebra.desktop.util.GuiResourcesD;
 
 /**
@@ -36,6 +43,8 @@ public class EditMenuD extends BaseMenu {
 			clipboardMenu;
 
 	private JSeparator selectionSeparator, deleteSeparator;
+
+	private MyTableD table;
 
 	public EditMenuD(AppD app) {
 		super(app, "Edit");
@@ -240,8 +249,19 @@ public class EditMenuD extends BaseMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				app.setWaitCursor();
-				app.getCopyPaste().copyToXML(app, selection.getSelectedGeos(),
-						false);
+
+				GuiManagerInterfaceD guiManager = app.getGuiManager();
+				if (guiManager.hasSpreadsheetView()) {
+					table = (MyTableD) guiManager.getSpreadsheetView()
+							.getSpreadsheetTable();
+					if (!table.isSelectNone()){
+						table.copy(false);
+					}
+				}
+
+				ArrayList<GeoElement> selGeos = selection.getSelectedGeos();
+				app.getCopyPaste().copyToXML(app, selGeos, false);
+
 				app.updateMenubar();
 				app.setDefaultCursor();
 			}
@@ -254,7 +274,20 @@ public class EditMenuD extends BaseMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				app.setWaitCursor();
-				app.getCopyPaste().pasteFromXML(app, false);
+				GuiManagerInterfaceD guiManager = app.getGuiManager();
+
+				if (guiManager.hasSpreadsheetView() &&
+						!table.isSelectNone()) {
+					boolean storeUndo = table.paste();
+					SpreadsheetViewD view = (SpreadsheetViewD) guiManager.getSpreadsheetView();
+					view.getRowHeader().revalidate();
+					if (storeUndo) {
+						app.storeUndoInfo();
+					}
+				} else {
+					CopyPasteD cp = app.getCopyPaste();
+					cp.pasteFromXML(app, false);
+				}
 				app.setDefaultCursor();
 			}
 		};

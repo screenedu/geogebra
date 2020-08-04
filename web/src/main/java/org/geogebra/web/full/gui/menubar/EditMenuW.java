@@ -4,6 +4,9 @@ import org.geogebra.common.main.Localization;
 import org.geogebra.common.main.OptionType;
 import org.geogebra.common.main.SelectionManager;
 import org.geogebra.web.full.css.MaterialDesignResources;
+import org.geogebra.web.full.gui.view.spreadsheet.MyTableW;
+import org.geogebra.web.full.gui.view.spreadsheet.SpreadsheetViewW;
+import org.geogebra.web.html5.gui.GuiManagerInterfaceW;
 import org.geogebra.web.html5.gui.tooltip.ToolTipManagerW;
 import org.geogebra.web.html5.main.AppW;
 import org.geogebra.web.html5.main.Clipboard;
@@ -20,6 +23,7 @@ public class EditMenuW extends Submenu {
 	final SelectionManager selection;
 	private boolean valid = true;
 	private Localization loc;
+	private MyTableW table;
 
 	/**
 	 * Constructs the "Edit" menu
@@ -136,7 +140,20 @@ public class EditMenuW extends Submenu {
 					@Override
 					public void doExecute() {
 						getApp().setWaitCursor();
-						getApp().getCopyPaste().pasteFromXML(getApp());
+
+						GuiManagerInterfaceW guiManager = getApp().getGuiManager();
+						if (guiManager.hasSpreadsheetView() &&
+								!table.isSelectNone()) {
+							boolean storeUndo = table.paste();
+							SpreadsheetViewW view = (SpreadsheetViewW) guiManager.getSpreadsheetView();
+							view.rowHeaderRevalidate();
+							if (storeUndo) {
+								getApp().storeUndoInfo();
+							}
+						} else {
+							getApp().getCopyPaste().pasteFromXML(getApp());
+						}
+
 						getApp().setDefaultCursor();
 					}
 				});
@@ -253,6 +270,16 @@ public class EditMenuW extends Submenu {
 					public void doExecute() {
 						if (!selection.getSelectedGeos().isEmpty()) {
 							getApp().setWaitCursor();
+
+							GuiManagerInterfaceW guiManager = getApp().getGuiManager();
+							if (guiManager.hasSpreadsheetView()) {
+								table = (MyTableW) guiManager.getSpreadsheetView()
+										.getSpreadsheetTable();
+								if (!table.isSelectNone()) {
+									table.copy(false, true);
+								}
+							}
+
 							getApp().getCopyPaste().copyToXML(getApp(),
 									selection.getSelectedGeos());
 							initActions(); // getApp().updateMenubar(); - it's
