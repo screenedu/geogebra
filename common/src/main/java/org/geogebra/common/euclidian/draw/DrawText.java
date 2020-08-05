@@ -135,7 +135,10 @@ public final class DrawText extends Drawable {
 				xLabel = view.toScreenCoordX(p.getX());
 				yLabel = view.toScreenCoordY(p.getY());
 
-				handleTextAlignment();
+				if (text.getVerticalAlignment() != null
+						|| text.getHorizontalAlignment() != null) {
+					handleTextAlignment();
+				}
 			}
 			xLabel += text.labelOffsetX;
 			yLabel += text.labelOffsetY;
@@ -221,6 +224,14 @@ public final class DrawText extends Drawable {
 	}
 
 	private void handleTextAlignment() {
+		double lineSpread = textFont.getSize() * 1.5f;
+		int newLineNr = labelDesc.length()
+				- labelDesc.replaceAll("\n", "").length();
+		// adjust y position according to nr of lines and line height
+		// needed for multiline texts
+		yLabel = (int) (yLabel - lineSpread * newLineNr);
+
+
 		int horizontalVal = text.getHorizontalAlignment() != null
 				? (int) text.getHorizontalAlignment().getValue()
 				: 1;
@@ -228,16 +239,16 @@ public final class DrawText extends Drawable {
 				? (int) text.getVerticalAlignment().getValue()
 				: 1;
 		if (horizontalVal == -1) {
-			xLabel = (int) (xLabel - labelRectangle.getWidth());
+			xLabel -= labelRectangle.getWidth();
 		}
 		if (verticalVal == -1) {
-			yLabel = (int) (yLabel + labelRectangle.getHeight() - 10);
+			yLabel += labelRectangle.getHeight() - 10;
 		}
 		if (horizontalVal == 0) {
-			xLabel = (int) (xLabel - labelRectangle.getWidth() / 2);
+			xLabel -= labelRectangle.getWidth() / 2;
 		}
 		if (verticalVal == 0) {
-			yLabel = (int) (yLabel + (labelRectangle.getHeight() - 15) / 2);
+			yLabel += (labelRectangle.getHeight() - 15) / 2;
 		}
 	}
 
