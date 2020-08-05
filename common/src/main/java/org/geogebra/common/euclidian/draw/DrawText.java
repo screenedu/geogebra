@@ -137,7 +137,7 @@ public final class DrawText extends Drawable {
 
 				double lineSpread = textFont.getSize() * 1.5f;
 				int newLineNr = labelDesc.length()
-						- labelDesc.replaceAll("\n","").length();
+						- labelDesc.replaceAll("\n", "").length();
 				// adjust y position according to nr of lines and line height
 				// needed for multiline texts
 				yLabel = (int) (yLabel - lineSpread * newLineNr);
