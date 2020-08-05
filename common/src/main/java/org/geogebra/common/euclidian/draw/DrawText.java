@@ -229,7 +229,7 @@ public final class DrawText extends Drawable {
 				- labelDesc.replaceAll("\n", "").length();
 		// adjust y position according to nr of lines and line height
 		// needed for multiline texts
-		yLabel = (int) (yLabel - lineSpread * newLineNr);
+		yLabel -= lineSpread * newLineNr;
 
 		int horizontalVal = text.getHorizontalAlignment() != null
 				? (int) text.getHorizontalAlignment().getValue()
