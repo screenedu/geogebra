@@ -231,7 +231,6 @@ public final class DrawText extends Drawable {
 		// needed for multiline texts
 		yLabel = (int) (yLabel - lineSpread * newLineNr);
 
-
 		int horizontalVal = text.getHorizontalAlignment() != null
 				? (int) text.getHorizontalAlignment().getValue()
 				: 1;
@@ -242,13 +241,14 @@ public final class DrawText extends Drawable {
 			xLabel -= labelRectangle.getWidth();
 		}
 		if (verticalVal == -1) {
-			yLabel += labelRectangle.getHeight() - 10;
+			// magic number 6 comes from EuclidianStatic::drawMultiLineText
+	 		yLabel += labelRectangle.getHeight() - 6;
 		}
 		if (horizontalVal == 0) {
-			xLabel -= labelRectangle.getWidth() / 2;
+			xLabel -= (labelRectangle.getWidth() / 2);
 		}
 		if (verticalVal == 0) {
-			yLabel += (labelRectangle.getHeight() - 15) / 2;
+			yLabel += (labelRectangle.getHeight() / 2) - 6;
 		}
 	}
 
