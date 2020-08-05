@@ -134,6 +134,14 @@ public final class DrawText extends Drawable {
 
 				xLabel = view.toScreenCoordX(p.getX());
 				yLabel = view.toScreenCoordY(p.getY());
+
+				double lineSpread = textFont.getSize() * 1.5f;
+				int newLineNr = labelDesc.length()
+						- labelDesc.replaceAll("\n","").length();
+				// adjust y position according to nr of lines and line height
+				// needed for multiline texts
+				yLabel = (int) (yLabel - lineSpread * newLineNr);
+
 				handleTextAlignment();
 			}
 			xLabel += text.labelOffsetX;
