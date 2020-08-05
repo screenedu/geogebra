@@ -224,12 +224,16 @@ public final class DrawText extends Drawable {
 	}
 
 	private void handleTextAlignment() {
-		double lineSpread = textFont.getSize() * 1.5f;
-		int newLineNr = labelDesc.length()
-				- labelDesc.replaceAll("\n", "").length();
-		// adjust y position according to nr of lines and line height
-		// needed for multiline texts
-		yLabel -= lineSpread * newLineNr;
+		if (isLaTeX) {
+			yLabel -= labelRectangle.getHeight() - 12;
+		} else {
+			double lineSpread = textFont.getSize() * 1.5f;
+			int newLineNr = labelDesc.length()
+					- labelDesc.replaceAll("\n", "").length();
+			// adjust y position according to nr of lines and line height
+			// needed for multiline texts
+			yLabel -= lineSpread * newLineNr;
+		}
 
 		int horizontalVal = text.getHorizontalAlignment() != null
 				? (int) text.getHorizontalAlignment().getValue()
