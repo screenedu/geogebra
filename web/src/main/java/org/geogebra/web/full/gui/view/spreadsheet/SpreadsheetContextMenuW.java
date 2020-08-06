@@ -26,19 +26,6 @@ import com.google.gwt.user.client.Command;
  */
 public class SpreadsheetContextMenuW extends SpreadsheetContextMenu {
 
-	/** minimum selected row */
-	private int row1 = -1;
-
-	/** maximum selected row */
-	private int row2 = -1;
-
-	/** minimum selected column */
-	private int column1 = -1;
-
-	/** maximum selected column */
-	private int column2 = -1;
-
-
 	private GPopupMenuW popup;
 
 	/**
@@ -426,6 +413,4 @@ public class SpreadsheetContextMenuW extends SpreadsheetContextMenu {
 				.getSpreadsheetView().getSpreadsheetTable();
 		wTable.copy(false, true);
 	}
-
-
 }
