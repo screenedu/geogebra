@@ -275,14 +275,15 @@ public class EditMenuD extends BaseMenu {
 			public void actionPerformed(ActionEvent e) {
 				app.setWaitCursor();
 				GuiManagerInterfaceD guiManager = app.getGuiManager();
-
-				if (guiManager.hasSpreadsheetView() &&
-						!table.isSelectNone()) {
-					boolean storeUndo = table.paste();
-					SpreadsheetViewD view = (SpreadsheetViewD) guiManager.getSpreadsheetView();
-					view.getRowHeader().revalidate();
-					if (storeUndo) {
-						app.storeUndoInfo();
+				if (guiManager.hasSpreadsheetView()) {
+					table = (MyTableD) guiManager.getSpreadsheetView().getSpreadsheetTable();
+					if (!table.isSelectNone()) {
+						boolean storeUndo = table.paste();
+						SpreadsheetViewD view = (SpreadsheetViewD) guiManager.getSpreadsheetView();
+						view.getRowHeader().revalidate();
+						if (storeUndo) {
+							app.storeUndoInfo();
+						}
 					}
 				} else {
 					CopyPasteD cp = app.getCopyPaste();

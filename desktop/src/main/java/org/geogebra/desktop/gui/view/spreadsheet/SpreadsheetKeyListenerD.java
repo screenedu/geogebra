@@ -2,6 +2,7 @@ package org.geogebra.desktop.gui.view.spreadsheet;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
@@ -307,7 +308,12 @@ public class SpreadsheetKeyListenerD implements KeyListener {
 					e.consume();
 
 					if (keyCode == KeyEvent.VK_C) {
+						ArrayList<GeoElement> selectedGeos = app.getSelectionManager()
+								.getSelectedGeos();
+						app.getCopyPaste().copyToXML(app, selectedGeos, false);
 						table.copy(altDown);
+						app.updateMenubar();
+
 					} else if (keyCode == KeyEvent.VK_V) {
 						boolean storeUndo = table.paste();
 						view.getRowHeader().revalidate();

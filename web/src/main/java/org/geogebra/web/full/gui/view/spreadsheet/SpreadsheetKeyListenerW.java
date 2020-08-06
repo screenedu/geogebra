@@ -1,5 +1,7 @@
 package org.geogebra.web.full.gui.view.spreadsheet;
 
+import java.util.ArrayList;
+
 import org.geogebra.common.awt.GPoint;
 import org.geogebra.common.kernel.Kernel;
 import org.geogebra.common.kernel.geos.GeoElement;
@@ -670,7 +672,7 @@ public class SpreadsheetKeyListenerW
 	 *            pasted text
 	 */
 	public void onPaste(String text) {
-		boolean storeUndo = table.paste(text);
+		boolean storeUndo = table.paste();
 		view.rowHeaderRevalidate();
 		if (storeUndo) {
 			app.storeUndoInfo();
@@ -696,7 +698,12 @@ public class SpreadsheetKeyListenerW
 		Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
 			@Override
 			public void execute() {
+				ArrayList<GeoElement> selectedGeos = app.getSelectionManager()
+						.getSelectedGeos();
+				app.getCopyPaste().copyToXML(app, selectedGeos);
 				table.copy(altDown, true);
+				app.updateMenubar();
+
 			}
 		});
 	}
