@@ -545,7 +545,7 @@ public class SpreadsheetContextMenu {
 
 	}
 
-	private void cmdCopy() {
+	protected void cmdCopy() {
 		table.getCopyPasteCut().copy(column1, row1, column2, row2, false);
 
 	}
