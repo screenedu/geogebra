@@ -142,7 +142,7 @@ public class EditMenuW extends Submenu {
 						getApp().setWaitCursor();
 
 						GuiManagerInterfaceW guiManager = getApp().getGuiManager();
-						if (guiManager.hasSpreadsheetView()){
+						if (guiManager.hasSpreadsheetView()) {
 							table = (MyTableW) guiManager.getSpreadsheetView()
 									.getSpreadsheetTable();
 								if (!table.isSelectNone()) {
