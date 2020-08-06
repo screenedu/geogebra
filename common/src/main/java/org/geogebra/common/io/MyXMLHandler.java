@@ -2507,7 +2507,7 @@ public class MyXMLHandler implements DocHandler {
 			String toolbar = attrs.get("toolbar");
 			boolean isVisible = !"false".equals(attrs.get("visible"));
 			boolean openInFrame = "true".equals(attrs.get("inframe"));
-
+			DockPanelData.TabIds tabId = getTabId(attrs.get("tab"));
 			String showStyleBarStr = attrs.get("stylebar");
 			boolean showStyleBar = !"false".equals(showStyleBarStr);
 
@@ -2524,6 +2524,7 @@ public class MyXMLHandler implements DocHandler {
 			DockPanelData dp = new DockPanelData(viewId, toolbar, isVisible,
 					openInFrame, showStyleBar, windowRect, embeddedDef,
 					embeddedSize, plane);
+			dp.setTabId(tabId);
 			if (app.getConfig() != null) {
 				app.getConfig().adjust(dp);
 			}
@@ -2534,6 +2535,17 @@ public class MyXMLHandler implements DocHandler {
 			Log.debug(e.getMessage() + ": " + e.getCause());
 			return false;
 		}
+	}
+
+	private DockPanelData.TabIds getTabId(String tab) {
+		if (tab != null) {
+			try {
+				return DockPanelData.TabIds.valueOf(tab);
+			} catch (RuntimeException e) {
+				// enum value not found
+			}
+		}
+		return DockPanelData.TabIds.ALGEBRA;
 	}
 
 	// ====================================
