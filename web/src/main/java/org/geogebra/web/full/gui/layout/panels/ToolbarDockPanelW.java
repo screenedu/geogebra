@@ -118,6 +118,8 @@ public class ToolbarDockPanelW extends DockPanelW
 			// open with false: no fading here.
 			if (tabId == DockPanelData.TabIds.TOOLS) {
 				toolbar.openTools(false);
+			} else if (tabId == DockPanelData.TabIds.TABLE) {
+				toolbar.openTableView(false);
 			} else {
 				toolbar.openAlgebra(false);
 			}
