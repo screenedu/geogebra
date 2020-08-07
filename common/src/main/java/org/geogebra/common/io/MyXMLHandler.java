@@ -2524,10 +2524,10 @@ public class MyXMLHandler implements DocHandler {
 			DockPanelData dp = new DockPanelData(viewId, toolbar, isVisible,
 					openInFrame, showStyleBar, windowRect, embeddedDef,
 					embeddedSize, plane);
-			dp.setTabId(tabId);
 			if (app.getConfig() != null) {
 				app.getConfig().adjust(dp);
 			}
+			dp.setTabId(tabId); // explicitly stored tab overrides config
 			tmp_views.add(dp);
 
 			return true;

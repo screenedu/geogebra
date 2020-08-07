@@ -739,7 +739,7 @@ public class ToolbarPanel extends FlowPanel
 	 *            decides if tab should fade during animation.
 	 */
 	public void openTableView(@Nullable GeoEvaluatable geo, boolean fade) {
-		if (!app.showToolBar()) {
+		if (!app.showToolBar() || !app.getConfig().hasTableView()) {
 			openAlgebra(fade);
 			return;
 		}

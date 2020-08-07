@@ -285,7 +285,7 @@ final public class DockPanelData {
 		sb.append(getEmbeddedDef());
 		sb.append("\" size=\"");
 		sb.append(getEmbeddedSize());
-		if (tabId != TabIds.ALGEBRA) {
+		if (viewId == App.VIEW_ALGEBRA) {
 			sb.append("\" tab=\"");
 			sb.append(tabId.name());
 		}
